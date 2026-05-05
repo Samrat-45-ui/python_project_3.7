@@ -29,10 +29,10 @@ class LibraryInv:
         self.data_file = "library_data.json"
         self.loans = self.load_data()
 
-        label_style = {"font": ("Arial", 10, "bold")}
-        input_box_style = { "font": ("Arial", 10)}
+        label_style = {"bg": "#2c3e50", "fg": "#ecf0f1", "font": ("Arial", 10, "bold")}
+        input_box_style = {"bg": "#34495e", "fg": "white", "insertbackground": "white", "relief": "flat", "font": ("Arial", 10)}
         
-        Label(root, text="LIBRARY MANAGEMENT", font=("Arial", 16, "bold")).pack(pady=20)
+        Label(root, text="LIBRARY MANAGEMENT", bg="#2c3e50", fg="#3498db", font=("Arial", 16, "bold")).pack(pady=20)
 
         self.fields = {}
         field_configs = [("Borrower Name", "name"), ("Age", "age"), ("Book Title", "book"), ("Book ISBN", "isbn")]
@@ -43,13 +43,13 @@ class LibraryInv:
             input_box.pack(fill="x", padx=50, pady=5, ipady=3)
             self.fields[internal_name] = input_box
 
-        issue_book_btn = Button(text="Issue Book", command=self.issue_book)
+        issue_book_btn = Button(text="Issue Book", command=self.issue_book, bg="#27ae60", fg="white", font=("Arial", 10, "bold"), cursor="hand2")
         issue_book_btn.pack(fill="x", padx=50, pady=5, ipady=5)
 
-        view_borrower_btn = Button(text="View all Borrowers", command=self.view_borrowers)
+        view_borrower_btn = Button(text="View all Borrowers", command=self.view_borrowers, bg="#3498db", fg="white", font=("Arial", 10, "bold"), cursor="hand2")
         view_borrower_btn.pack(fill="x", padx=50, pady=5, ipady=5)
 
-        return_book_btn = Button(text="Return Book", command=self.return_book)
+        return_book_btn = Button(text="Return Book", command=self.return_book, bg="#e74c3c", fg="white", font=("Arial", 10, "bold"), cursor="hand2")
         return_book_btn.pack(fill="x", padx=50, pady=5, ipady=5)
 
     def load_data(self):
