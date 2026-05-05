@@ -92,6 +92,22 @@ class LibraryInv:
         if form_data["isbn"] in self.loans:  # prevent duplicate issued ISBNs or already issued books
             messagebox.showerror("Error", "This book is already issued to someone else.")
             return
+        
+        if len(form_data["isbn"]) != 13:  # check if the ISBN is 13 characters long
+            messagebox.showerror("Error", "Please enter a valid 13-character ISBN.")
+            return
+        
+        if len(form_data["book"]) < 2:  # check if the book title is at least 2 characters long
+            messagebox.showerror("Error", "Please enter a valid book title (at least 2 characters).")
+            return
+
+        if form_data["name"].isnumeric():  # check if the name is not numeric
+            messagebox.showerror("Error", "Please enter a valid name (non numeric).")
+            return
+        
+        if form_data["isbn"].isalpha():  # check if the ISBN is not purely alphabetic
+            messagebox.showerror("Error", "Please enter a valid ISBN (not purely alphabetic).")
+            return
 
         new_borrower = Borrower(form_data['name'], age_value, form_data['book'], form_data['isbn'])  # create borrower record by instantiating the Borrower class
         self.loans[form_data['isbn']] = new_borrower.todict()  # store loan under ISBN by converting borrower data to a dictionary
