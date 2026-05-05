@@ -85,12 +85,33 @@ class LibraryInv:
         self.loans[form_data['isbn']] = new_borrower.todict()
         self.save_data()
         messagebox.showinfo("Success", f"'{form_data['book']}' has been issued to {form_data['name']} successfully.")
+        self.clear_fields()
 
     def view_borrowers(self):
-        pass
+        if not self.loans:
+            messagebox.showinfo('Empty, no active borrowers.')
+            return
+
+        borrower_list = []
+        for isbn, details in self.loans.items():
+            borrower_list.append(f'ISBN: {isbn} | {details['book']} -> {details['name']}')
+        
+        messagebox.showinfo('Current Borrowers', '\n'.join(borrower_list))
 
     def return_book(self):
-        pass
+        check_isbn = self.fields['isbn'].get().strip()
+
+        if check_isbn in self.loans:
+            del self.loans[check_isbn]
+            self.save_data()
+            messagebox.showinfo("Success", "Book returned.")
+            self.clear_fields()
+        else:
+            messagebox.showerror("Error", "Invalid ISBN or book not issued.")
+
+    def clear_fields(self):
+        for input_box in self.fields.values():
+            input_box.delete(0, END)
 
 
 if __name__ == "__main__":
